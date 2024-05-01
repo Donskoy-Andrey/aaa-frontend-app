@@ -25,9 +25,10 @@
   {% if error %}
   <div class="container-sm mb-3 col-8">
     <div class="alert alert-danger" role="alert">
-      {{ error }}
+      Возникла ошибка: {{ error }}
     </div>
-    {% endif %}
+  </div>
+  {% endif %}
 
     {% if image %}
     <div class="mb-3 text-center">
@@ -60,7 +61,7 @@
           {% for word in words %}
           <tr>
             <td><img src="{{ word.image }}" /></td>
-            <td>{{ word.word | upper }}</td>
+            <td style="vertical-align: middle;">{{ word.word | upper }}</td>
             <td class="{% if word.accuracy > 0.90 %}
                       table-success
                       {% elif word.accuracy > 0.70 %}
@@ -68,15 +69,16 @@
                       {% else %}
                       table-danger
                       {% endif %}
-                    ">
+                    "
+                    style="vertical-align: middle;">
               {{ "%2.3f" | format(word.accuracy * 100) }} %
             </td>
           </tr>
           {% endfor %}
       </table>
       {% else %}
-      <p class="text-center text-muted"> После загрузки изображения тут будет таблица с изображениями,</p>
-      <p class="text-center text-muted"> распознанными словами и точностью распознавания. </p>
+      <p class="text-center text-muted"> После загрузки изображения тут будет таблица с изображениями, <br>
+       распознанными словами и точностью распознавания. </p>
     </div>
     {% endif %}
 

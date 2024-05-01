@@ -12,7 +12,6 @@ class IndexView(View):
     template = "index.html"
 
     async def get(self) -> Response:
-        # ctx = {"error": "Просто ошибка"}
         ctx = {}
         return render_template(self.template, self.request, ctx)
 
@@ -36,6 +35,8 @@ class IndexView(View):
                 )
             image_b64 = image_to_img_src(draw.get_highlighted_image())
             ctx = {"image": image_b64, "words": words}
+        except AttributeError as err:
+            ctx = {"error": f"Ошибка при загрузке файла {str(err), type(err)}"}
         except Exception as err:
-            ctx = {"error": str(err)}
+            ctx = {"error": f"Неожиданная ошибка {str(err), type(err)}"}
         return render_template(self.template, self.request, ctx)
